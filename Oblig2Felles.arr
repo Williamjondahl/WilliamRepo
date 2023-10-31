@@ -143,6 +143,7 @@ fun tegnAlle():
 end
 
 #funksjon som brukeren kan skrive inn i interaksjonsvinduet for å gjøre ett trekk. f.eks move(4, 3) flytter sirkel 4(den minste) til pinne 3(høyre)
+#Sjekker i tilleg om trekket er gyldig ved å se om det er en mindre sirkel over den som brukeren prøver å flytte og om det er en mindre sirkel på den staven brukeren prøver å flytte til
 fun move(sirkel, stav):
   if (sirkel == 1):
     block:

@@ -143,7 +143,6 @@ fun tegnAlle():
 end
 
 #funksjon som brukeren kan skrive inn i interaksjonsvinduet for å gjøre ett trekk. f.eks move(4, 3) flytter sirkel 4(den minste) til pinne 3(høyre)
-#Bruker i tillegg en if statement som skjekker om sirkelen har en mindre sirkel over seg, slik at man bare kan flytte sirkelen som er på toppen
 fun move(sirkel, stav):
   if (sirkel == 1):
     block:
@@ -158,7 +157,7 @@ fun move(sirkel, stav):
     end
   else if (sirkel == 2):
     block:
-      if ((pos2 == pos3) or (pos2 == pos4)) or ((pos3 == stav) or (pos4 == stav)): 
+      if ((pos2 == pos3) or (pos2 == pos4)) or ((pos3 == stav) or (pos4 == stav)):
         "ugyldig trekk"
       else:
         block:
@@ -168,18 +167,20 @@ fun move(sirkel, stav):
       end
     end
   else if (sirkel == 3):
-    if (pos3 == pos4) or (pos4 == stav):
-      "ugyldig trekk" 
-    else:
-      block:
-      pos3 := stav
-      tegnAlle()
+    block:
+      if (pos3 == pos4) or (pos4 == stav):
+        "ugyldig trekk"
+      else:
+        block:
+          pos3 := stav
+          tegnAlle()
+        end
       end
     end
   else if (sirkel == 4):
     block:
-     pos4 := stav
-     tegnAlle()
+      pos4 := stav
+      tegnAlle()
     end
   else: 
     "ugyldig input"

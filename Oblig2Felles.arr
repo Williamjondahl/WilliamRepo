@@ -24,18 +24,15 @@ var pos1 = 1
 var pos2 = 1
 var pos3 = 1
 var pos4 = 1
-var gyldig = true
 
 #tegner startposisjonen til spillet og gir en liten forklaring av move()
 fun start():
   block:
-    print("skriv move(sirkel, pinne) for å gjøre ett trekk")
-    print("1 er den største sirkelen og 4 er den minste")
-    print("1 er pinnen til venstre, 3 er pinnen til høyre")
+  print("skriv move(sirkel, pinne) for å gjøre ett trekk")
+  print("1 er den største sirkelen og 4 er den minste")
+  print("1 er pinnen til venstre, 3 er pinnen til høyre")
     print("f.eks move(3, 2) flytter sirkel 3(nest minst) til pinne2 (midterste)")
-    print("skriv reset() for å restarte brettet")
-    print("skriv start() for å starte fra start igjen")
-    
+  print("skriv start() for å gå tilbake til start")
     pos1 := 1
     pos2 := 1
     pos3 := 1
@@ -44,21 +41,6 @@ fun start():
   underlay(move1(1),
     underlay(move2(1),
       underlay(move3(1),
-          move4(1))))
-  end
-end
-
-#Funksjon for å restarte spillebrettet uten teksten fra start()
-fun reset():
-  block:
-    pos1 := 1
-    pos2 := 1
-    pos3 := 1
-    pos4 := 1
-    
-    underlay(move1(1),
-      underlay(move2(1),
-        underlay(move3(1),
           move4(1))))
   end
 end
@@ -161,6 +143,7 @@ fun tegnAlle():
 end
 
 #funksjon som brukeren kan skrive inn i interaksjonsvinduet for å gjøre ett trekk. f.eks move(4, 3) flytter sirkel 4(den minste) til pinne 3(høyre)
+#Sjekker i tilleg om trekket er gyldig ved å se om det er en mindre sirkel over den som brukeren prøver å flytte og om det er en mindre sirkel på den staven brukeren prøver å flytte til
 fun move(sirkel, stav):
   if (sirkel == 1):
     block:

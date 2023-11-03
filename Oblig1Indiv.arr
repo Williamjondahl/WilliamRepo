@@ -14,3 +14,4 @@ underlay-xy((rodFirkant), 0, 0,
 # I denne oppgaven, har jeg brukt erfaring fra gruppeoppgaven. Etter mye ekspeimentering på gruppeoppgaven kom gruppen fram til å bruke underlay-xy funksjonen for å tegne bilder over hverandre. 
 # Flagget består av fem rektangler, ett stort rødt ett, og de 4 rektanglene som sammen lager hvitt og blått kors.
 # Siden underlay-xy funksjonen tar 4 argumenter bruker jeg empty-image funksjonen til å fylle ut siste argument uten å endre på outputtet
+

@@ -1,4 +1,7 @@
 use context essentials2021
+include shared-gdrive("dcic-2021", "1wyQZj_L0qqV9Ekgr9au6RX2iqt2Ga8Ep")
+include tables
+
 #Definerer spillefeltet med de 3 pinnene
 justering = rectangle(540, 200, "solid" , "transparent")
 spillFelt = rectangle(420, 200, "solid", "transparent")
@@ -24,23 +27,46 @@ var pos1 = 1
 var pos2 = 1
 var pos3 = 1
 var pos4 = 1
+var i = 1
+var sirkelLogg = [list: ]
+var posLogg = [list: ]
+var trekkLogg = [list: ]
+
 
 #tegner startposisjonen til spillet og gir en liten forklaring av move()
 fun start():
   block:
-  print("skriv move(sirkel, pinne) for å gjøre ett trekk")
-  print("1 er den største sirkelen og 4 er den minste")
-  print("1 er pinnen til venstre, 3 er pinnen til høyre")
+    print("skriv move(sirkel, pinne) for å gjøre ett trekk")
+    print("1 er den største sirkelen og 4 er den minste")
+    print("1 er pinnen til venstre, 3 er pinnen til høyre")
     print("f.eks move(3, 2) flytter sirkel 3(nest minst) til pinne2 (midterste)")
-  print("skriv start() for å gå tilbake til start")
+    print("skriv reset() for å restarte brettet")
+    print("skriv start() for å starte fra start igjen")
+    print("skriv logg() for å se en logg av alle trekkene dine(bare etter et trekk er gjort)")
+    
     pos1 := 1
     pos2 := 1
     pos3 := 1
     pos4 := 1
     
-  underlay(move1(1),
-    underlay(move2(1),
-      underlay(move3(1),
+    underlay(move1(1),
+      underlay(move2(1),
+        underlay(move3(1),
+          move4(1))))
+  end
+end
+
+#Funksjon for å restarte spillebrettet uten teksten fra start()
+fun reset():
+  block:
+    pos1 := 1
+    pos2 := 1
+    pos3 := 1
+    pos4 := 1
+    
+    underlay(move1(1),
+      underlay(move2(1),
+        underlay(move3(1),
           move4(1))))
   end
 end
@@ -136,56 +162,117 @@ end
 
 #Funksjon som tegner modellen for trekket, bruker pos1 pos2.. variablene for å beholde posisjonen til alle sirklene etter man har gjort ett trekk
 fun tegnAlle():
-  underlay(move1(pos1),
-    underlay(move2(pos2),
-      underlay(move3(pos3),
-        move4(pos4))))
+  #If statement som sjekker om brukeren har vunnet spillet
+  #sjekker om alle posisjonene = 3
+  #På grunn av gyldighetssjekk i move() vil disse posisjonene bare være like om brukeren har vunnet
+  if (pos1 == 3) and (pos2 == 3) and (pos3 == 3) and (pos4 == 3):
+    block:
+      print("Gratulerer du vant!")
+      underlay(move1(pos1),
+        underlay(move2(pos2),
+          underlay(move3(pos3),
+            move4(pos4))))
+        
+    end
+  else:
+    block:
+      underlay(move1(pos1),
+        underlay(move2(pos2),
+          underlay(move3(pos3),
+            move4(pos4))))
+    end
+  end
 end
 
 #funksjon som brukeren kan skrive inn i interaksjonsvinduet for å gjøre ett trekk. f.eks move(4, 3) flytter sirkel 4(den minste) til pinne 3(høyre)
-#Sjekker i tilleg om trekket er gyldig ved å se om det er en mindre sirkel over den som brukeren prøver å flytte og om det er en mindre sirkel på den staven brukeren prøver å flytte til
 fun move(sirkel, stav):
-  if (sirkel == 1):
-    block:
-      if ((pos1 == pos2) or (pos1 == pos3) or (pos1 == pos4)) or ((pos2 == stav) or (pos3 == stav) or (pos4 == stav)):
+  block:
+    if (sirkel == 1):
+      block:
+        #Gyldighets sjekk, sørger for at man ikke kan gjøre ulovlige trekk
+        if ((pos1 == pos2) or (pos1 == pos3) or (pos1 == pos4)) or ((pos2 == stav) or (pos3 == stav) or (pos4 == stav)):
           "ugyldig trekk"
-      else:
-        block:
-        pos1 := stav
+        else:
+          block:
+            #oppdaterer posisjonsvariabel
+            pos1 := stav
+            #legger til verdier i lister som brukes for å lage logg tabell
+            sirkelListe = [list: sirkel]
+            posListe = [list: stav]
+            iListe = [list: i]
+            sirkelLogg := sirkelLogg.append(sirkelListe)
+            posLogg := posLogg.append(posListe)
+            trekkLogg := trekkLogg.append(iListe)
+            #teller antall trekk gjort
+            i := i + 1
+            tegnAlle()
+          end
+        end
+      end
+    else if (sirkel == 2):
+      block:
+        if ((pos2 == pos3) or (pos2 == pos4)) or ((pos3 == stav) or (pos4 == stav)):
+          "ugyldig trekk"
+        else:
+          block:
+            pos2 := stav
+            sirkelListe = [list: sirkel]
+            posListe = [list: stav]
+            iListe = [list: i]
+            sirkelLogg := sirkelLogg.append(sirkelListe)
+            posLogg := posLogg.append(posListe)
+            trekkLogg := trekkLogg.append(iListe)
+            i := i + 1
+            tegnAlle()
+          end
+        end
+      end
+    else if (sirkel == 3):
+      block:
+        if (pos3 == pos4) or (pos4 == stav):
+          "ugyldig trekk"
+        else:
+          block:
+            pos3 := stav
+            sirkelListe = [list: sirkel]
+            posListe = [list: stav]
+            iListe = [list: i]
+            sirkelLogg := sirkelLogg.append(sirkelListe)
+            posLogg := posLogg.append(posListe)
+            trekkLogg := trekkLogg.append(iListe)
+            i := i + 1
+            tegnAlle()
+          end
+        end
+      end
+    else if (sirkel == 4):
+      block:
+        pos4 := stav
+        sirkelListe = [list: sirkel]
+        posListe = [list: stav]
+        iListe = [list: i]
+        sirkelLogg := sirkelLogg.append(sirkelListe)
+        posLogg := posLogg.append(posListe)
+        trekkLogg := trekkLogg.append(iListe)
+        i := i + 1
         tegnAlle()
-        end
       end
+    else: 
+      "ugyldig input"
     end
-  else if (sirkel == 2):
-    block:
-      if ((pos2 == pos3) or (pos2 == pos4)) or ((pos3 == stav) or (pos4 == stav)):
-        "ugyldig trekk"
-      else:
-        block:
-          pos2 := stav
-          tegnAlle()
-        end
-      end
-    end
-  else if (sirkel == 3):
-    block:
-      if (pos3 == pos4) or (pos4 == stav):
-        "ugyldig trekk"
-      else:
-        block:
-          pos3 := stav
-          tegnAlle()
-        end
-      end
-    end
-  else if (sirkel == 4):
-    block:
-      pos4 := stav
-      tegnAlle()
-    end
-  else: 
-    "ugyldig input"
   end
 end
+
+#Funksjon som lager tabell fra listene som bevarer trekk, sirkel og posisjonsverdier.
+fun logg():
+  loggTabell = [table-from-columns:
+    {"Trekk"; trekkLogg},
+    {"Sirkel"; sirkelLogg},
+    {"Posisjon"; posLogg}
+  ]
+ 
+    loggTabell
+end
+
 
 start()

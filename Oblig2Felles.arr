@@ -51,6 +51,7 @@ fun start():
     sirkelLogg := [list: ]
     posLogg := [list: ]
     trekkLogg := [list: ]
+    i := 1
     
     underlay(move1(1),
       underlay(move2(1),
@@ -69,6 +70,7 @@ fun reset():
     sirkelLogg := [list: ]
     posLogg := [list: ]
     trekkLogg := [list: ]
+    i := 1
     
     underlay(move1(1),
       underlay(move2(1),

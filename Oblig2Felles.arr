@@ -48,6 +48,9 @@ fun start():
     pos2 := 1
     pos3 := 1
     pos4 := 1
+    sirkelLogg := [list: ]
+    posLogg := [list: ]
+    trekkLogg := [list: ]
     
     underlay(move1(1),
       underlay(move2(1),
@@ -63,6 +66,9 @@ fun reset():
     pos2 := 1
     pos3 := 1
     pos4 := 1
+    sirkelLogg := [list: ]
+    posLogg := [list: ]
+    trekkLogg := [list: ]
     
     underlay(move1(1),
       underlay(move2(1),
